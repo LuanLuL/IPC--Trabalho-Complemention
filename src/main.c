@@ -131,7 +131,11 @@ int main() {
                     printf("\nERRO...ERRO...Opção inválida...ERRO...ERRO\n");
                     break;
                 }
-                inserirCliente(&supermercado[--caixaSelecionado]);
+                if(supermercado[caixaSelecionado - 1].estado == 0){
+                    printf("\nOperação cancelada, pois o caixa está fechado!\n");
+                    break;
+                }
+                inserirCliente(&supermercado[caixaSelecionado - 1]);
                 printf("\nCliente adicionado com sucesso!\n");
                 break;
             case 2:
@@ -142,14 +146,51 @@ int main() {
                     printf("\nERRO...ERRO...Opção inválida...ERRO...ERRO\n");
                     break;
                 }
-                if(supermercado[--caixaSelecionado].qtdClientes == 0){
+                 if(supermercado[caixaSelecionado - 1].estado == 0){
+                    printf("\nOperação cancelada, pois o caixa está fechado!\n");
+                    break;
+                }
+                if(supermercado[caixaSelecionado - 1].qtdClientes == 0){
                     printf("\nCaixa está vazio\n");
                     break;
                 }
-                removerCliente(&supermercado[--caixaSelecionado], 0);
+                removerCliente(&supermercado[caixaSelecionado - 1], 0);
                 printf("\nCliente atendido com sucesso!\n");
                 break;
             case 3:
+                printf("\nEscolha um caixa (1 a 5): ");
+                scanf("%d", &caixaSelecionado);
+                limparBuffer();
+                if(caixaSelecionado < 1 || caixaSelecionado > 5){
+                    printf("\nERRO...ERRO...Opção inválida...ERRO...ERRO\n");
+                    break;
+                }
+                char confirma = 'N';
+                if(supermercado[caixaSelecionado].estado == 0){
+                    printf("\nDesaja abrir o %dº caixa? [S ou N]: ", caixaSelecionado);
+                    scanf("%c", &confirma);
+                } else{
+                    printf("\nDesaja abrir o %dº caixa? [S ou N]: ", caixaSelecionado);
+                    scanf("%c", &confirma);
+                }
+                switch (confirma){
+                    case 's':
+                    case 'S':
+                        if(caixaSelecionado == NUMCAIXAS){
+                            alterarEstado(&supermercado[NUMCAIXAS - 1], &supermercado[0]);
+                        }else{
+                            alterarEstado(&supermercado[caixaSelecionado - 1], &supermercado[caixaSelecionado]);
+                        }
+                        break;
+                    case 'n':
+                    case 'N':
+                        //faz nada
+                        printf("\nOperação cancelada!\n");
+                        break;
+                    default:
+                        printf("\nERRO...ERRO...Opção inválida...ERRO...ERRO\n");
+                        break;
+                    }
                 break;
             case 4:
                 for(int i = 0; i < NUMCAIXAS; i++){

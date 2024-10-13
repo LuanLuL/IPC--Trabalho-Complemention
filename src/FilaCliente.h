@@ -16,7 +16,7 @@ typedef struct fila {
 
 void inicializarFila(Fila *fila);
 void enfileirar(Fila *fila, Cliente valor);
-void desenfileirar(Fila *fila);
+Cliente desenfileirar(Fila *fila);
 void imprimirFila(Fila fila);
 int filaVazia(Fila fila);
 

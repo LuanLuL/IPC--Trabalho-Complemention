@@ -27,18 +27,22 @@ void enfileirar(Fila *fila, Cliente valor) {
 }
 
 
-void desenfileirar(Fila *fila) {
+Cliente desenfileirar(Fila *fila) {
     if (fila->primeiro == NULL) {
         printf("\nFila de cientes já está vazia\n");
-        return;
+        Cliente cliente_vazio;
+        cliente_vazio.prioridade = -1;
+        return cliente_vazio;
     }
     No *remover = fila->primeiro;
     fila->primeiro = remover->proximo;
     if (fila->primeiro == NULL) {
         fila->ultimo = NULL;
     }
+    Cliente returnCliente = remover->valor;
     free(remover);
     fila->tamanho--;
+    return returnCliente;
 }
 
 
@@ -49,9 +53,9 @@ int filaVazia(Fila fila) {
 void imprimirFila(Fila fila) {
     if(fila.tamanho == 0){
         printf("\n\t--- Não há clientes ---");
-       printf("\n\tA fila está vazia\n");
-       printf("\t---------------------------\n");
-       return;
+        printf("\n\tA fila está vazia\n");
+        printf("\t---------------------------\n");
+        return;
     }
     No *atual = fila.primeiro;
     for(int i = 0; atual; i++) {
