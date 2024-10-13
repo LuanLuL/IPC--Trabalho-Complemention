@@ -1,10 +1,10 @@
 <section>   
-    <h1>📢 AEDS: Sistema de Recomendação de Alocação de Clientes em Redes de Computadores</h1>   
+    <h1>📢 IPC: Sistema de Gestão de Filas em Supermercado</h1>   
     <p>
-        Criado em novembro de 2023, o projeto de<strong> Sistema de Recomendação de Alocação de Clientes em Redes de Computadores</strong> foi desenvolvido em virtude de atender as demandas do curso de Algoritimo e Estrutura de Dados, ministrado pelo professor <a href="https://www.linkedin.com/in/michelpiressilva/?originalSubdomain=br" target="_blank">Michel Pires Da Silva</a> no Centro Federal de Educação Tecnológica de Minas Gerais (<a href="https://www.divinopolis.cefetmg.br/" target="_blank">CEFET-MG</a>).
+        Criado em Outubro de 2024, o projeto de<strong> Sistema de Gestão de Filas em Supermercado</strong> foi desenvolvido em virtude de atender as demandas do curso de Introdução a programaçao de computadores, ministrado pelo professor <a href="https://www.linkedin.com/in/tiagofga/" target="_blank">Thiago Alves de Oliveira</a> no Centro Federal de Educação Tecnológica de Minas Gerais (<a href="https://www.divinopolis.cefetmg.br/" target="_blank">CEFET-MG</a>).
     </p>
     <p>
-        <a href="https://github.com/LuanLuL/Instalacao_Clientes/blob/main/documentation/Trabalho_final_AEDSII_TEMPLETE.pdf" target="_blank">Acesse a documentação [AQUI]</a>
+        <a href="https://github.com/LuanLuL/IPC--Trabalho-Complemention/blob/master/documentation/Trabalho_1.pdf" target="_blank">Acesse a documentação [AQUI]</a>
     </p>
 </section>
 </section>
