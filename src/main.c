@@ -6,9 +6,6 @@
 #include "Caixa.h"
 #define NUMCAIXAS 5
 
-
-
-
 // ********************** TESTES PARA VERIFICAR FUNCIONAMENTO DO CLIENTE **********************
 
 // int main() {
