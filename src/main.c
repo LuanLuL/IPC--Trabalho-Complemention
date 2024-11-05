@@ -1,9 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
+#include <limits.h>
+
 #include "FilaCliente.h"
 #include "Cliente.h"
 #include "Caixa.h"
+
 #define NUMCAIXAS 5
 
 // ********************** TESTES PARA VERIFICAR FUNCIONAMENTO DO CLIENTE **********************
@@ -106,13 +109,35 @@
 
 //********************** TESTES PARA VERIFICAR FUNCIONAMENTO DO PROGRAMA **********************
 
+int obterCaixaComMenosClientes(Caixa supermercado[], int caixaSelecionado) {
+    int indiceMenorCaixa = -1;;
+    int menorQtdClientes;
+    menorQtdClientes = INT_MAX;
+    for (int i = 0; i < NUMCAIXAS; i++) {
+        if (supermercado[i].estado != 0 && i != caixaSelecionado) {
+            if (supermercado[i].qtdClientes < menorQtdClientes) {
+                menorQtdClientes = supermercado[i].qtdClientes;
+                indiceMenorCaixa = i;
+                if (menorQtdClientes == 0) {
+                    break;
+                }
+            }
+        }
+    }
+    if (indiceMenorCaixa == -1) {
+        return -1;
+    }
+    return indiceMenorCaixa;
+}
+
+
 int main() {
     setlocale(LC_ALL, "Portuguese");
     Caixa supermercado[NUMCAIXAS];
     for(int i = 0; i < NUMCAIXAS; i++){
         supermercado[i] = inicializarCaixa((i+1)*43); // ID do caixa aleatorio
     }
-    int opcao, caixaSelecionado = 0;
+    int opcao, indiceProximoCaixa, caixaSelecionado = 0;
     printf("\n********** Sistema de Gestão de Filas em Supermercado **********\n");
     do {
         printf("\n\t1 - Cadastrar um Cliente\n\t2 - Atender um Cliente\n\t3 - Abrir ou Fechar um Caixa\n\t4 - Imprimir a Lista de Clientes em Espera\n\t5 - Imprimir o Status dos Caixas\n\t0 - Sair\n\n");
@@ -163,20 +188,29 @@ int main() {
                     break;
                 }
                 char confirma = 'N';
-                if(supermercado[caixaSelecionado].estado == 0){
+                if(supermercado[caixaSelecionado - 1].estado == 0){
                     printf("\nDesaja abrir o %dº caixa? [S ou N]: ", caixaSelecionado);
-                    scanf("%c", &confirma);
                 } else{
-                    printf("\nDesaja abrir o %dº caixa? [S ou N]: ", caixaSelecionado);
-                    scanf("%c", &confirma);
+                    printf("\nDesaja fechar o %dº caixa? [S ou N]: ", caixaSelecionado);
                 }
+                scanf("%c", &confirma);
                 switch (confirma){
                     case 's':
                     case 'S':
-                        if(caixaSelecionado == NUMCAIXAS){
-                            alterarEstado(&supermercado[NUMCAIXAS - 1], &supermercado[0]);
-                        }else{
-                            alterarEstado(&supermercado[caixaSelecionado - 1], &supermercado[caixaSelecionado]);
+                        indiceProximoCaixa = obterCaixaComMenosClientes(supermercado, caixaSelecionado-1);
+                        if(indiceProximoCaixa == -1){
+                            if(supermercado[caixaSelecionado - 1].qtdClientes == 0){
+                                if(supermercado[caixaSelecionado - 1].estado == 0){
+                                    supermercado[caixaSelecionado - 1].estado = 1;
+                                }else {
+                                    supermercado[caixaSelecionado - 1].estado = 0; 
+                                }
+                                printf("\nEstado do caixa alterado com sucesso!\n");
+                            }else {
+                                printf("\nERRO...ERRO...Ainda há clientes aguardando. Finalize o atendimento antes de fechar todos os caixas...ERRO...ERRO\n");
+                            }
+                        }else {
+                            alterarEstado(&supermercado[caixaSelecionado - 1], &supermercado[indiceProximoCaixa]);
                         }
                         break;
                     case 'n':
@@ -208,6 +242,6 @@ int main() {
         }
         printf("\n****************************************************************\n");
     } while (opcao != 0);
-
+    printf("\n");
     return 0;
 }

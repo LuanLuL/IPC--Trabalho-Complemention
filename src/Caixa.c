@@ -100,15 +100,28 @@ void imprimirCaixaSemCliente(Caixa caixa, int numeroCaixa) {
 }
 
 void alterarEstado(Caixa *caixaAtual, Caixa *proximoCaixa) {
-    if(caixaAtual->estado == 0){
-        caixaAtual->estado = 1;
+    if(proximoCaixa->estado == 1){
+        if(caixaAtual->estado == 0){
+            caixaAtual->estado = 1;
+            return;
+        }
+        while (caixaAtual->qtdClientes != 0){
+            trocarCliente(proximoCaixa, removerCliente(caixaAtual, 0));
+        }
+        caixaAtual->estado = 0;
+        printf("\nEstado do caixa alterado com sucesso!\n");
         return;
     }
-    while (caixaAtual->qtdClientes != 0){
-        trocarCliente(proximoCaixa, removerCliente(caixaAtual, 0));
+    else if(caixaAtual->qtdClientes == 0){
+       if(caixaAtual->estado == 0){
+            caixaAtual->estado = 1;
+            return;
+        }
+        caixaAtual->estado = 0; 
+        printf("\nEstado do caixa alterado com sucesso!\n");
+        return;
     }
-    caixaAtual->estado = 0;
-    printf("\nEstado do caixa alterado com sucesso!\n");
+    printf("\nERRO...ERRO...Ainda há clientes aguardando. Finalize o atendimento antes de fechar todos os caixas...ERRO...ERRO\n");
 }
 
 
